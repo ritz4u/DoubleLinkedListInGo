@@ -7,9 +7,9 @@ import (
 
 // Node represents a node of linked list
 type Node struct {
-	value int
-	prev  *Node
-	next  *Node
+	data interface{}
+	prev *Node
+	next *Node
 }
 
 // LinkedList represents a linked list
@@ -30,10 +30,10 @@ func (l *LinkedList) GetTail() *Node {
 }
 
 // Search returns node position with given value from linked list, -1 if node not found
-func (l *LinkedList) Search(val int) int {
+func (l *LinkedList) Search(val interface{}) int {
 	ptr := l.head
 	for i := 0; i < l.len; i++ {
-		if ptr.value == val {
+		if ptr.data == val {
 			return i
 		}
 		ptr = ptr.next
@@ -85,9 +85,9 @@ func (l *LinkedList) Reverse() {
 }
 
 // Insert inserts new node at the end of linked list
-func (l *LinkedList) Insert(val int) {
+func (l *LinkedList) Insert(val interface{}) {
 	n := Node{}
-	n.value = val
+	n.data = val
 	if l.len == 0 {
 		l.head = &n
 		l.tail = &n
@@ -101,9 +101,9 @@ func (l *LinkedList) Insert(val int) {
 }
 
 // InsertAtStart inserts new node at the beggining of linked list
-func (l *LinkedList) InsertAtStart(val int) {
+func (l *LinkedList) InsertAtStart(val interface{}) {
 	n := Node{}
-	n.value = val
+	n.data = val
 	if l.len == 0 {
 		l.head = &n
 		l.tail = &n
@@ -118,10 +118,10 @@ func (l *LinkedList) InsertAtStart(val int) {
 }
 
 // InsertAt inserts new node at given position
-func (l *LinkedList) InsertAt(pos int, value int) {
+func (l *LinkedList) InsertAt(pos int, value interface{}) {
 	// create a new node
 	newNode := Node{}
-	newNode.value = value
+	newNode.data = value
 	// validate the position
 	if pos < 0 {
 		fmt.Println("Position can not be negative, skipping insertion of: ", value)
