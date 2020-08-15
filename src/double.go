@@ -127,7 +127,7 @@ func (l *LinkedList) InsertAt(pos int, value interface{}) {
 		fmt.Println("Position can not be negative, skipping insertion of: ", value)
 		return
 	}
-	if pos == 0 {
+	if pos == 0 && l.len == 0 {
 		l.head = &newNode
 		l.tail = &newNode
 		l.len++
@@ -143,11 +143,16 @@ func (l *LinkedList) InsertAt(pos int, value interface{}) {
 	}
 	newNode.next = n
 	prevNode := l.GetAt(pos - 1)
-	prevNode.next = &newNode
+	if prevNode != nil {
+		prevNode.next = &newNode
+	}
 	newNode.prev = prevNode
 	// change tail with newly added node only if no node present at given position
 	if n == nil {
 		l.tail = &newNode
+	} else if pos == 0 {
+		// change head with newly added node only if adding node at 0th position
+		l.head = &newNode
 	}
 	l.len++
 }
